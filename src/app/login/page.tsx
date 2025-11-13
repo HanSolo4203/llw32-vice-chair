@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2Icon, LockIcon, LogInIcon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectedFrom") ?? "/";
   const supabase = getSupabaseBrowserClient();
 
   const [email, setEmail] = useState("");
@@ -25,7 +27,7 @@ export default function LoginPage() {
     const checkSession = async () => {
       const { data } = await supabase.auth.getSession();
       if (isMounted && data.session) {
-        router.replace("/");
+        router.replace(redirectTo);
       }
     };
 
@@ -33,7 +35,7 @@ export default function LoginPage() {
 
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
-        router.replace("/");
+        router.replace(redirectTo);
       }
     });
 
@@ -59,7 +61,7 @@ export default function LoginPage() {
       }
 
       toast.success("Signed in successfully.");
-      router.replace("/");
+      router.replace(redirectTo);
     } catch (error) {
       console.error("Failed to sign in", error);
       toast.error(
