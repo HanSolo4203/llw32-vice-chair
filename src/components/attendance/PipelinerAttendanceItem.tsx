@@ -49,12 +49,12 @@ const PipelinerAttendanceItem = memo(function PipelinerAttendanceItem({
   return (
     <Card
       className={cn(
-        "flex flex-col gap-5 rounded-2xl border p-5 shadow-sm transition-all duration-200",
+        "flex flex-col gap-5 rounded-2xl border p-4 shadow-sm transition-all duration-200 sm:p-5",
         eligible && "border-emerald-200 bg-emerald-50/80",
         disabled && "pointer-events-none opacity-60"
       )}
     >
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2 text-base font-semibold text-slate-900">
             {pipeliner.full_name}
@@ -75,7 +75,7 @@ const PipelinerAttendanceItem = memo(function PipelinerAttendanceItem({
             )}
           </div>
         </div>
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <label className="flex w-full items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 md:w-auto md:justify-start md:border-0 md:bg-transparent md:px-0 md:py-0">
           <input
             type="checkbox"
             className="size-4 rounded border-slate-300 text-primary focus:ring-primary"
@@ -118,7 +118,7 @@ const PipelinerAttendanceItem = memo(function PipelinerAttendanceItem({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="text-xs text-muted-foreground">
           Business Meetings: {pipeliner.business_meetings_count ?? 0}/3 · Charity
           Events: {pipeliner.charity_events_count ?? 0}/1
@@ -126,7 +126,7 @@ const PipelinerAttendanceItem = memo(function PipelinerAttendanceItem({
         <Button
           type="button"
           size="sm"
-          className="gap-2"
+          className="w-full gap-2 sm:w-auto"
           disabled={promoting || !eligible}
           onClick={onPromote}
         >

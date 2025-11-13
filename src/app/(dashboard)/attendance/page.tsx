@@ -1160,7 +1160,7 @@ export default function AttendancePage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 px-6 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
         <header className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
@@ -1188,8 +1188,8 @@ export default function AttendancePage() {
           )}
         </header>
 
-        <section className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <section className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
             <div className="flex flex-col gap-2">
               <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Meeting
@@ -1199,7 +1199,7 @@ export default function AttendancePage() {
                 onValueChange={(value) => setSelectedMeetingId(value)}
                 disabled={meetingsLoading || meetings.length === 0}
               >
-                <SelectTrigger className="w-72">
+                <SelectTrigger className="w-full min-w-0 sm:w-72">
                   <SelectValue placeholder="Select a meeting" />
                 </SelectTrigger>
                 <SelectContent className="max-h-72">
@@ -1218,7 +1218,7 @@ export default function AttendancePage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700">
+              <div className="flex w-full items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 sm:w-auto sm:justify-start">
                 {attendanceLoading ? (
                   <Loader2Icon className="size-4 animate-spin text-primary" />
                 ) : (
@@ -1231,7 +1231,7 @@ export default function AttendancePage() {
               <Button
                 type="button"
                 variant="outline"
-                className="gap-2"
+                className="w-full gap-2 sm:w-auto"
                 onClick={handleMarkAllPresent}
                 disabled={
                   !selectedMeetingId || members.length === 0 || saving
@@ -1244,7 +1244,7 @@ export default function AttendancePage() {
           </div>
 
           {selectedMeeting && (
-            <div className="flex flex-col gap-4 rounded-xl bg-slate-50/60 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 rounded-xl bg-slate-50/60 p-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2 font-medium text-slate-800">
                   <CalendarDaysIcon className="size-4 text-primary" />
@@ -1268,7 +1268,7 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
           <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Members</h2>
@@ -1279,7 +1279,7 @@ export default function AttendancePage() {
             <Button
               type="button"
               variant="outline"
-              className="gap-2 self-start sm:self-auto"
+              className="w-full gap-2 self-start sm:w-auto sm:self-auto"
               onClick={() =>
                 setMemberViewMode((current) =>
                   current === "grid" ? "list" : "grid",
@@ -1409,7 +1409,7 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Guests</h2>
@@ -1437,7 +1437,7 @@ export default function AttendancePage() {
               No guests recorded yet. Add guests as they arrive and mark their attendance.
             </div>
           ) : (
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {guests.map((guest) => {
                 const attended = guestAttendance[guest.id]?.attended ?? false;
                 const eligible =
@@ -1459,7 +1459,7 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Pipeliners</h2>
@@ -1485,7 +1485,7 @@ export default function AttendancePage() {
               No pipeliners captured yet. Promote eligible guests to start tracking.
             </div>
           ) : (
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {pipelinerEligibility.map((pipeliner) => {
                 const attended = pipelinerAttendance[pipeliner.id]?.attended ?? false;
                 return (
@@ -1504,7 +1504,7 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="sticky bottom-6 mt-4">
+        <section className="sticky bottom-24 mt-4 lg:bottom-6">
           <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-2xl backdrop-blur">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
@@ -1520,7 +1520,7 @@ export default function AttendancePage() {
               </div>
               <Button
                 type="button"
-                className="gap-2"
+                className="w-full gap-2 sm:w-auto"
                 onClick={() => void saveAttendance()}
                 disabled={
                   !selectedMeetingId || !hasUnsavedChanges || saving
@@ -1548,7 +1548,7 @@ export default function AttendancePage() {
               )}
             </div>
             {errorRecords.length > 0 && (
-              <p className="text-xs text-destructive/80">
+              <p className="break-words text-xs text-destructive/80">
                 Issue affecting: {errorRecords.join(", ")}
               </p>
             )}

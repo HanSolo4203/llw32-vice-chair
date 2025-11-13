@@ -92,7 +92,11 @@ function QuickAddGuestForm({ onSubmit, loading = false }: QuickAddGuestFormProps
           disabled={disabled}
         />
       </div>
-      <Button type="submit" className="self-end gap-2" disabled={disabled}>
+      <Button
+        type="submit"
+        className="w-full gap-2 self-end sm:w-auto"
+        disabled={disabled}
+      >
         {disabled ? (
           <Loader2Icon className="size-4 animate-spin" />
         ) : (

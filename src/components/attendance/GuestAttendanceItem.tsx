@@ -51,12 +51,12 @@ const GuestAttendanceItem = memo(function GuestAttendanceItem({
   return (
     <Card
       className={cn(
-        "flex flex-col gap-4 rounded-2xl border p-5 shadow-sm transition-all duration-200",
+        "flex flex-col gap-4 rounded-2xl border p-4 shadow-sm transition-all duration-200 sm:p-5",
         eligible && "border-indigo-200 bg-indigo-50/80",
         disabled && "pointer-events-none opacity-60"
       )}
     >
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2 text-base font-semibold text-slate-900">
             {guest.full_name}
@@ -75,8 +75,8 @@ const GuestAttendanceItem = memo(function GuestAttendanceItem({
             {guest.phone && <span>{guest.phone}</span>}
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <label className="flex w-full items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 sm:w-auto sm:justify-start sm:border-0 sm:bg-transparent sm:px-0 sm:py-0">
             <input
               type="checkbox"
               className="size-4 rounded border-slate-300 text-primary focus:ring-primary"
@@ -89,7 +89,7 @@ const GuestAttendanceItem = memo(function GuestAttendanceItem({
           <Button
             type="button"
             size="sm"
-            className="gap-2"
+            className="w-full gap-2 sm:w-auto"
             variant="outline"
             disabled={!eligible || promoting}
             onClick={onPromote}

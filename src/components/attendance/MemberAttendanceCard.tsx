@@ -147,7 +147,7 @@ const MemberAttendanceCard = memo(function MemberAttendanceCard({
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {attendanceOptions.map(({ value, label, Icon, activeClass, baseClass }) => {
           const isActive = status === value;
           return (
@@ -158,6 +158,7 @@ const MemberAttendanceCard = memo(function MemberAttendanceCard({
               className={cn(
                 "flex flex-1 items-center justify-center rounded-xl border px-3 py-2 text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/40",
                 "bg-white/90 backdrop-blur",
+                "min-w-full sm:min-w-0",
                 isActive ? activeClass : baseClass
               )}
               disabled={disabled}
