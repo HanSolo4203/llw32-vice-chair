@@ -28,6 +28,7 @@ function LoginContent() {
       const { data } = await supabase.auth.getSession();
       if (isMounted && data.session) {
         router.replace(redirectTo);
+        router.refresh();
       }
     };
 
@@ -36,6 +37,7 @@ function LoginContent() {
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
         router.replace(redirectTo);
+        router.refresh();
       }
     });
 
@@ -43,7 +45,7 @@ function LoginContent() {
       isMounted = false;
       subscription.subscription.unsubscribe();
     };
-  }, [router, supabase]);
+  }, [redirectTo, router, supabase]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,6 +64,7 @@ function LoginContent() {
 
       toast.success("Signed in successfully.");
       router.replace(redirectTo);
+      router.refresh();
     } catch (error) {
       console.error("Failed to sign in", error);
       toast.error(
