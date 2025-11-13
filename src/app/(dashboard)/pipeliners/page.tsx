@@ -6,6 +6,7 @@ import {
   FilterIcon,
   Loader2Icon,
   PartyPopperIcon,
+  PencilIcon,
   RefreshCcwIcon,
   SparklesIcon,
   StarIcon,
@@ -15,6 +16,8 @@ import {
 import { toast } from "sonner";
 
 import CharityEventDialog from "@/components/charity/CharityEventDialog";
+import EditPipelinerDialog from "@/components/pipeliners/EditPipelinerDialog";
+import LogPipelinerEventDialog from "@/components/pipeliners/LogPipelinerEventDialog";
 import PromoteToMemberDialog from "@/components/pipeliners/PromoteToMemberDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -129,6 +132,9 @@ export default function PipelinersPage() {
     null
   );
   const [charityDialogOpen, setCharityDialogOpen] = useState(false);
+  const [logEventDialogOpen, setLogEventDialogOpen] = useState(false);
+  const [eventPipeliner, setEventPipeliner] = useState<PipelinerEligibility | null>(null);
+  const [editDialogPipeliner, setEditDialogPipeliner] = useState<PipelinerEligibility | null>(null);
   const [members, setMembers] = useState<MemberOption[]>([]);
   const [membersLoading, setMembersLoading] = useState(true);
 
@@ -187,6 +193,12 @@ export default function PipelinersPage() {
       setSelectedPipeliner(null);
     }
   }, [promotionDialogOpen]);
+
+  useEffect(() => {
+    if (!logEventDialogOpen) {
+      setEventPipeliner(null);
+    }
+  }, [logEventDialogOpen]);
 
   const memberLookup = useMemo(() => {
     const dictionary = new Map<string, MemberOption>();
@@ -258,6 +270,11 @@ export default function PipelinersPage() {
     },
     []
   );
+
+  const handleOpenLogEvent = useCallback((pipeliner: PipelinerEligibility) => {
+    setEventPipeliner(pipeliner);
+    setLogEventDialogOpen(true);
+  }, []);
 
   const handlePromote = useCallback(
     async (payload: { member_number: string; join_date: string }) => {
@@ -566,11 +583,8 @@ export default function PipelinersPage() {
                         />
                         </div>
 
-                      <div className="mt-auto flex items-center justify-between">
+                      <div className="mt-auto flex flex-col gap-3">
                         <div className="flex flex-col text-xs text-muted-foreground">
-                          <span>
-                            Guest meetings: {pipeliner.guest_meetings_count ?? 0}
-                          </span>
                           <span>
                             Business meetings:{" "}
                             {formatProgressText(
@@ -591,25 +605,48 @@ export default function PipelinersPage() {
                           </span>
                         </div>
 
-                        <Button
-                          size="sm"
-                          onClick={() => handleOpenPromotion(pipeliner)}
-                          disabled={!eligible || pipeliner.status === "became_member"}
-                          className="shadow"
-                        >
-                          {promotingId === pipeliner.id ? (
-                            <>
-                              <Loader2Icon className="mr-2 size-4 animate-spin" />
-                              Promoting...
-                            </>
-                          ) : (
-                            <>
-                              <PartyPopperIcon className="mr-2 size-4" />
-                              Promote to Member
-                            </>
-                          )}
-                        </Button>
+                        <div className="flex flex-wrap items-center justify-end gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleOpenLogEvent(pipeliner)}
+                            disabled={pipeliner.status === "became_member"}
+                            className="border-slate-200"
+                          >
+                            <SparklesIcon className="mr-2 size-4" />
+                            Log Event
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={() => setEditDialogPipeliner(pipeliner)}
+                            className="gap-2"
+                          >
+                            <PencilIcon className="size-4" />
+                            Edit
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            onClick={() => handleOpenPromotion(pipeliner)}
+                            disabled={!eligible || pipeliner.status === "became_member"}
+                            className="shadow"
+                          >
+                            {promotingId === pipeliner.id ? (
+                              <>
+                                <Loader2Icon className="mr-2 size-4 animate-spin" />
+                                Promoting...
+                              </>
+                            ) : (
+                              <>
+                                <PartyPopperIcon className="mr-2 size-4" />
+                                Promote to Member
+                              </>
+                            )}
+                          </Button>
                         </div>
+                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -708,6 +745,45 @@ export default function PipelinersPage() {
           await createEvent(payload);
         }}
         creating={creatingEvent}
+      />
+
+      <LogPipelinerEventDialog
+        open={logEventDialogOpen}
+        onOpenChange={setLogEventDialogOpen}
+        pipeliner={eventPipeliner}
+        creating={creatingEvent}
+        onCreate={async ({ eventDate, eventName, notes, pipelinerId }) => {
+          await createEvent({
+            event_name: eventName,
+            event_date: eventDate,
+            description: notes || null,
+            participant_pipeliner_ids: [pipelinerId],
+          });
+          await refreshPipeliners();
+        }}
+      />
+
+      <EditPipelinerDialog
+        pipeliner={editDialogPipeliner}
+        members={members}
+        open={Boolean(editDialogPipeliner)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditDialogPipeliner(null);
+          }
+        }}
+        onUpdated={async () => {
+          await refreshPipeliners();
+          await fetchMembers();
+        }}
+        onLogNewEvent={
+          editDialogPipeliner
+            ? () => {
+                setEventPipeliner(editDialogPipeliner);
+                setLogEventDialogOpen(true);
+              }
+            : undefined
+        }
       />
     </div>
   );

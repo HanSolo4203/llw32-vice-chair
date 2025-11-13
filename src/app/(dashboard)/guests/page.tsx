@@ -5,6 +5,7 @@ import {
   ArrowUpRightIcon,
   DownloadIcon,
   Loader2Icon,
+  PencilIcon,
   RefreshCcwIcon,
   SearchIcon,
   SparklesIcon,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 import AddGuestDialog from "@/components/guests/AddGuestDialog";
+import EditGuestDialog from "@/components/guests/EditGuestDialog";
 import PromoteToPipelinerDialog from "@/components/guests/PromoteToPipelinerDialog";
 import LogGuestEventDialog from "@/components/guests/LogGuestEventDialog";
 import { Badge } from "@/components/ui/badge";
@@ -76,6 +78,7 @@ export default function GuestsPage() {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [eventDialogGuest, setEventDialogGuest] = useState<GuestMeetingCounts | null>(null);
+  const [editDialogGuest, setEditDialogGuest] = useState<GuestMeetingCounts | null>(null);
 
   const fetchMembers = useCallback(
     async (options?: { silently?: boolean }) => {
@@ -419,9 +422,19 @@ export default function GuestsPage() {
                               variant="secondary"
                               className="gap-2"
                               onClick={() => setEventDialogGuest(guest)}
+                              disabled={guest.status !== "active"}
                             >
                               <SparklesIcon className="size-4" />
                               Log Event
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="gap-2"
+                              onClick={() => setEditDialogGuest(guest)}
+                            >
+                              <PencilIcon className="size-4" />
+                              Edit
                             </Button>
                             <Button
                               size="sm"
@@ -505,9 +518,19 @@ export default function GuestsPage() {
                           variant="secondary"
                           size="sm"
                           onClick={() => setEventDialogGuest(guest)}
+                          disabled={guest.status !== "active"}
                         >
                           <SparklesIcon className="size-4" />
                           Log Event
+                        </Button>
+                        <Button
+                          className="w-full gap-2"
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setEditDialogGuest(guest)}
+                        >
+                          <PencilIcon className="size-4" />
+                          Edit Guest
                         </Button>
                         <Button
                           className="w-full gap-2"
@@ -552,6 +575,25 @@ export default function GuestsPage() {
         onOpenChange={setAddDialogOpen}
         members={members}
         onCreated={refreshData}
+      />
+
+      <EditGuestDialog
+        guest={editDialogGuest}
+        members={members}
+        open={Boolean(editDialogGuest)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditDialogGuest(null);
+          }
+        }}
+        onUpdated={refreshData}
+        onLogNewEvent={
+          editDialogGuest
+            ? () => {
+                setEventDialogGuest(editDialogGuest);
+              }
+            : undefined
+        }
       />
 
       {(loading || membersLoading) && guests.length === 0 && (

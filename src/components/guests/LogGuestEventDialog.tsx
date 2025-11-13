@@ -100,10 +100,28 @@ export default function LogGuestEventDialog({
       await Promise.resolve(onCompleted?.());
       onOpenChange(false);
     } catch (error) {
-      console.error("Failed to log guest event", error);
-      toast.error(
-        error instanceof Error ? error.message : "Unable to log the guest event right now.",
-      );
+      const supabaseError =
+        error && typeof error === "object"
+          ? (error as { message?: string; details?: string; hint?: string; code?: string })
+          : undefined;
+
+      console.error("Failed to log guest event", {
+        error: supabaseError ?? error,
+        guestId: guest?.id,
+        payload: {
+          guest_id: guest?.id,
+          event_name: form.eventName.trim(),
+          event_date: form.eventDate,
+        },
+      });
+
+      const errorMessage =
+        supabaseError?.message ??
+        supabaseError?.details ??
+        (error instanceof Error ? error.message : null) ??
+        "Unable to log the guest event right now.";
+
+      toast.error(errorMessage);
     } finally {
       setSubmitting(false);
     }
@@ -151,12 +169,14 @@ export default function LogGuestEventDialog({
 
           <label className="flex flex-col gap-1 text-sm font-medium text-slate-700">
             Event Name
-            <Input
+            <textarea
               value={form.eventName}
               onChange={(event) =>
                 setForm((previous) => ({ ...previous, eventName: event.target.value }))
               }
-              placeholder="Charity Golf Day"
+              rows={2}
+              placeholder="Describe the Round Table event or initiative"
+              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={submitting}
               required
             />

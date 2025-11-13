@@ -253,7 +253,7 @@ export function useGuests() {
           promoted_from_guest_date: new Date().toISOString().split("T")[0],
           guest_meetings_count: Math.max(guest.meeting_count, 3),
           business_meetings_count: guest.present_count ?? guest.meeting_count,
-          charity_events_count: 0,
+          charity_events_count: guest.event_count ?? 0,
           is_eligible_for_membership: false,
           status: "active",
           sponsored_by: payload.sponsoring_member_id,
