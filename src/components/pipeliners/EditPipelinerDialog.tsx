@@ -194,7 +194,7 @@ export default function EditPipelinerDialog({
 
     setSaving(true);
     try {
-      const updates: Promise<unknown>[] = [];
+      const updates: PromiseLike<unknown>[] = [];
       updates.push(
         supabase
           .from("pipeliners")

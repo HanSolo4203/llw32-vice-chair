@@ -180,7 +180,7 @@ export default function EditGuestDialog({
 
     setSaving(true);
     try {
-      const updates: Promise<unknown>[] = [];
+      const updates: PromiseLike<unknown>[] = [];
 
       const guestPayload = {
         full_name: form.fullName.trim(),
