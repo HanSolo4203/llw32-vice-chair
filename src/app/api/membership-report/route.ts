@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 
 import type { Database } from "@/types/database";
 import { fetchMembershipStats } from "@/lib/membershipStats";
@@ -19,7 +19,9 @@ function getServiceRoleKey() {
   );
 }
 
-function getSupabaseServerClient(): SupabaseClient<Database, any, any, any> {
+async function getSupabaseServerClient(): Promise<
+  SupabaseClient<Database, any, any, any>
+> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = getServiceRoleKey();
 
@@ -35,7 +37,31 @@ function getSupabaseServerClient(): SupabaseClient<Database, any, any, any> {
     return serviceClient;
   }
 
-  return createRouteHandlerClient<Database>({ cookies });
+  if (!supabaseUrl || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    throw new Error(
+      "Supabase configuration is missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+
+  const cookieStore = await cookies();
+
+  return createServerClient<Database>(
+    supabaseUrl,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name, value, options) {
+          cookieStore.set({ name, value, ...options });
+        },
+        remove(name, options) {
+          cookieStore.delete({ name, ...options });
+        },
+      },
+    },
+  );
 }
 
 export async function POST(request: Request) {
@@ -52,7 +78,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase = getSupabaseServerClient();
+    const supabase = await getSupabaseServerClient();
     const stats = await fetchMembershipStats(supabase, month);
     if ((stats.pipelinerAttendanceRate ?? 0) < 0) {
       stats.pipelinerAttendanceRate = 0;

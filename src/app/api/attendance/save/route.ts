@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { Pool, type PoolClient } from "pg";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 
 import type { Attendance, Database } from "@/types/database";
 
@@ -140,7 +140,34 @@ async function saveWithSupabaseAuthClient(
   upserts: NonNullable<AttendancePayload["upserts"]>,
   deletions: string[],
 ) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      "Supabase configuration is missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+
+  const cookieStore = await cookies();
+
+  const supabase = createServerClient<Database>(
+    supabaseUrl,
+    supabaseAnonKey,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name, value, options) {
+          cookieStore.set({ name, value, ...options });
+        },
+        remove(name, options) {
+          cookieStore.delete({ name, ...options });
+        },
+      },
+    },
+  );
   return saveAttendanceWithSupabaseClient(supabase, upserts, deletions);
 }
 
