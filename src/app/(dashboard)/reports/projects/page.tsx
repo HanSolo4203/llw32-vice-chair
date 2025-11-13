@@ -464,9 +464,9 @@ export default function ProjectsReportPage() {
     : reportingPeriod || "Reporting Period";
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] px-6 py-8 text-[#0f172a] print:min-h-fit print:bg-white print:p-0 sm:px-10">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 print:max-w-none print:px-0 print:py-0 lg:flex-row">
-        <section className="flex w-full flex-col gap-4 print:hidden lg:max-w-sm">
+    <div className="min-h-screen bg-[#f1f5f9] pb-16 pt-8 text-[#0f172a] print:min-h-fit print:bg-white print:p-0">
+      <div className="page-shell flex w-full flex-col gap-responsive print:max-w-none print:px-0 print:py-0 lg:flex-row">
+        <section className="flex w-full flex-col gap-responsive print:hidden lg:max-w-sm">
           <Card className="border border-[#e2e8f0] shadow-none">
             <CardHeader className="border-b border-[#f1f5f9] pb-4">
               <CardTitle className="text-sm font-semibold uppercase tracking-wide text-[#475569]">

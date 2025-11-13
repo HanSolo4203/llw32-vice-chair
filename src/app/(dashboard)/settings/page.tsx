@@ -162,8 +162,9 @@ export default function SettingsPage() {
   const currentDate = format(new Date(), "dd MMM yyyy");
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
-      <header className="flex flex-col gap-4 border-b border-slate-200 pb-6 md:flex-row md:items-end md:justify-between">
+    <div className="bg-slate-50/70 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <header className="flex flex-col gap-responsive border-b border-slate-200 pb-6 md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">
           <div className="flex items-center gap-3 text-slate-900">
             <div className="flex size-10 items-center justify-center rounded-lg bg-slate-900 text-white">
@@ -180,14 +181,14 @@ export default function SettingsPage() {
         </div>
       </header>
 
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+      <section className="grid gap-responsive lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Card className="border-none shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-slate-900">
               General Settings
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="section-stack">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="goodThreshold">Good attendance threshold (%)</Label>
@@ -229,7 +230,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="section-stack">
               <Label>Notification Preferences</Label>
               <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/60 px-4 py-3">
                 <div>
@@ -258,7 +259,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="section-stack">
               <Label htmlFor="defaultLocation">Default meeting location</Label>
               <Input
                 id="defaultLocation"
@@ -307,7 +308,7 @@ export default function SettingsPage() {
               Database Statistics
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="section-stack">
             <p className="text-sm text-slate-200">
               Snapshot of the current portfolio to make handovers effortless.
             </p>
@@ -337,15 +338,15 @@ export default function SettingsPage() {
         </Card>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-responsive lg:grid-cols-2">
         <Card className="border-none shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-slate-900">
               Data Management
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-slate-50/60 p-4">
+          <CardContent className="section-stack">
+            <div className="section-stack rounded-lg border border-slate-200 bg-slate-50/60 p-4">
               <div className="flex items-start gap-3">
                 <DownloadIcon className="mt-1 size-4 text-slate-500" />
                 <div>
@@ -374,7 +375,7 @@ export default function SettingsPage() {
               </Button>
             </div>
 
-            <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-slate-50/60 p-4">
+            <div className="section-stack rounded-lg border border-slate-200 bg-slate-50/60 p-4">
               <div className="flex items-start gap-3">
                 <UploadIcon className="mt-1 size-4 text-slate-500" />
                 <div>
@@ -411,7 +412,7 @@ export default function SettingsPage() {
               Critical Actions
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm text-rose-800">
+          <CardContent className="section-stack text-sm text-rose-800">
             <p>
               Clearing data permanently deletes attendance records, members, guests, pipeliners, meetings, and charity events.
               Make sure you have a backup before continuing.
@@ -478,6 +479,7 @@ export default function SettingsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }

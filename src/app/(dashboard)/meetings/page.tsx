@@ -125,69 +125,70 @@ export default function MeetingsPage() {
   const isProcessing = !!activeMeetingId && processingId === activeMeetingId;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 px-6 py-10">
-      <header className="mx-auto flex w-full max-w-6xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-semibold text-slate-900">Meetings & Events</h1>
-          <p className="text-sm text-muted-foreground">
-            Plan ahead for the next 13 months, capture key details, and keep attendance on track.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className={cn("gap-2", dateFilter === "all" && "border-primary/50 text-primary")}
-            onClick={() => setDateFilter("all")}
-          >
-            All
-          </Button>
-          <Button
-            variant="outline"
-            className={cn(
-              "gap-2",
-              dateFilter === "upcoming" && "border-primary/50 text-primary"
-            )}
-            onClick={() => setDateFilter("upcoming")}
-          >
-            Upcoming
-          </Button>
-          <Button
-            variant="outline"
-            className={cn("gap-2", dateFilter === "past" && "border-primary/50 text-primary")}
-            onClick={() => setDateFilter("past")}
-          >
-            Past
-          </Button>
-          <Button onClick={openCreateDialog} className="gap-2">
-            <PlusIcon className="size-4" />
-            Create New Meeting
-          </Button>
-        </div>
-      </header>
-
-      <section className="mx-auto mt-8 flex w-full max-w-6xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
-        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-            <FilterIcon className="size-4" />
-            Filter by type
+    <div className="bg-gradient-to-br from-slate-50 via-white to-slate-100 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <header className="flex flex-col gap-responsive sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-semibold text-slate-900">Meetings & Events</h1>
+            <p className="text-sm text-muted-foreground">
+              Plan ahead for the next 13 months, capture key details, and keep attendance on track.
+            </p>
           </div>
-          <Select
-            value={typeFilter}
-            onValueChange={(value) => setTypeFilter(value as MeetingTypeValue | "all")}
-          >
-            <SelectTrigger className="w-48">
-              <SelectValue placeholder="All meeting types" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All types</SelectItem>
-              {MEETING_TYPES.map((type) => (
-                <SelectItem key={type.value} value={type.value}>
-                  {type.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <Button
+              variant="outline"
+              className={cn("gap-2", dateFilter === "all" && "border-primary/50 text-primary")}
+              onClick={() => setDateFilter("all")}
+            >
+              All
+            </Button>
+            <Button
+              variant="outline"
+              className={cn(
+                "gap-2",
+                dateFilter === "upcoming" && "border-primary/50 text-primary"
+              )}
+              onClick={() => setDateFilter("upcoming")}
+            >
+              Upcoming
+            </Button>
+            <Button
+              variant="outline"
+              className={cn("gap-2", dateFilter === "past" && "border-primary/50 text-primary")}
+              onClick={() => setDateFilter("past")}
+            >
+              Past
+            </Button>
+            <Button onClick={openCreateDialog} className="gap-2">
+              <PlusIcon className="size-4" />
+              Create New Meeting
+            </Button>
+          </div>
+        </header>
+
+        <section className="section-card section-stack">
+          <div className="flex flex-col items-start gap-responsive sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <FilterIcon className="size-4" />
+              Filter by type
+            </div>
+            <Select
+              value={typeFilter}
+              onValueChange={(value) => setTypeFilter(value as MeetingTypeValue | "all")}
+            >
+              <SelectTrigger className="w-full sm:w-56 lg:w-48">
+                <SelectValue placeholder="All meeting types" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All types</SelectItem>
+                {MEETING_TYPES.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
         {error && (
           <p className="rounded-lg border border-dashed border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
@@ -201,11 +202,11 @@ export default function MeetingsPage() {
             Loading meeting calendar…
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-responsive lg:grid-cols-2">
             {monthBuckets.map((bucket) => (
               <div
                 key={bucket.key}
-                className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm"
+                className="flex flex-col gap-responsive rounded-xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm"
               >
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-slate-900">
@@ -283,58 +284,59 @@ export default function MeetingsPage() {
           </div>
         )}
 
-        {!loading && filteredMeetings.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center">
-            <h3 className="text-lg font-semibold text-slate-900">No meetings yet</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Start planning by adding your first meeting between July 2025 and July 2026.
-            </p>
-            <Button className="mt-4 gap-2" onClick={openCreateDialog}>
-              <PlusIcon className="size-4" />
-              Create New Meeting
-            </Button>
-          </div>
-        )}
-      </section>
+          {!loading && filteredMeetings.length === 0 && (
+            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center">
+              <h3 className="text-lg font-semibold text-slate-900">No meetings yet</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Start planning by adding your first meeting between July 2025 and July 2026.
+              </p>
+              <Button className="mt-4 gap-2" onClick={openCreateDialog}>
+                <PlusIcon className="size-4" />
+                Create New Meeting
+              </Button>
+            </div>
+          )}
+        </section>
 
-      <MeetingDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        mode={dialogMode}
-        submitHandler={(values) =>
-          dialogMode === "create"
-            ? createMeeting(values)
-            : selectedMeeting
-              ? updateMeeting(selectedMeeting.id, values)
-              : Promise.reject(new Error("No meeting selected"))
-        }
-        meeting={dialogMode === "edit" ? selectedMeeting : null}
-        loading={
-          dialogMode === "create"
-            ? creating
-            : selectedMeeting
-            ? processingId === selectedMeeting.id
-            : false
-        }
-      />
-
-      <MeetingDetailsDialog
-        open={detailsOpen}
-        onOpenChange={handleDetailsOpenChange}
-        meeting={selectedMeeting}
-        onEdit={(meeting) => {
-          setDetailsOpen(false);
-          openEditDialog(meeting);
-        }}
-        onDelete={async (meeting) => {
-          await deleteMeeting(meeting.id);
-          if (selectedMeeting?.id === meeting.id) {
-            setSelectedMeeting(null);
+        <MeetingDialog
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          mode={dialogMode}
+          submitHandler={(values) =>
+            dialogMode === "create"
+              ? createMeeting(values)
+              : selectedMeeting
+                ? updateMeeting(selectedMeeting.id, values)
+                : Promise.reject(new Error("No meeting selected"))
           }
-        }}
-        deleting={activeMeetingId ? processingId === activeMeetingId : false}
-        processing={isProcessing}
-      />
+          meeting={dialogMode === "edit" ? selectedMeeting : null}
+          loading={
+            dialogMode === "create"
+              ? creating
+              : selectedMeeting
+              ? processingId === selectedMeeting.id
+              : false
+          }
+        />
+
+        <MeetingDetailsDialog
+          open={detailsOpen}
+          onOpenChange={handleDetailsOpenChange}
+          meeting={selectedMeeting}
+          onEdit={(meeting) => {
+            setDetailsOpen(false);
+            openEditDialog(meeting);
+          }}
+          onDelete={async (meeting) => {
+            await deleteMeeting(meeting.id);
+            if (selectedMeeting?.id === meeting.id) {
+              setSelectedMeeting(null);
+            }
+          }}
+          deleting={activeMeetingId ? processingId === activeMeetingId : false}
+          processing={isProcessing}
+        />
+      </div>
     </div>
   );
 }

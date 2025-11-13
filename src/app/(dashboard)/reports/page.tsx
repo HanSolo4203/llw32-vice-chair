@@ -1594,7 +1594,7 @@ export default function ReportsPage() {
               {meetingsSorted.map((meeting) => (
                 <TableHead
                   key={meeting.id}
-                  className="min-w-[120px] rotate-0 bg-white text-center text-xs font-semibold text-muted-foreground print-transparent"
+                  className="report-col rotate-0 bg-white text-center text-xs font-semibold text-muted-foreground print-transparent"
                 >
                   <div className="flex flex-col gap-1">
                     <span>{formatDateLabel(meeting.meeting_date)}</span>
@@ -1604,7 +1604,7 @@ export default function ReportsPage() {
                   </div>
                 </TableHead>
               ))}
-              <TableHead className="sticky right-0 z-30 min-w-[120px] bg-white text-center shadow-sm print-transparent">
+              <TableHead className="sticky right-0 z-30 report-col bg-white text-center shadow-sm print-transparent">
                 Attendance %
               </TableHead>
             </TableRow>
@@ -1971,9 +1971,10 @@ export default function ReportsPage() {
   }, [memberStats, selectedMemberIds.length]);
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10">
-      <header className="flex flex-col gap-6 border-b border-slate-200 pb-6 print-hide">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div className="bg-slate-50/70 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <header className="flex flex-col gap-responsive border-b border-slate-200 pb-6 print-hide">
+        <div className="flex flex-col gap-responsive md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
               Reports & Data Export
@@ -2046,6 +2047,7 @@ export default function ReportsPage() {
           {activeTab === "export" && renderExport()}
         </>
       )}
+      </div>
     </div>
   );
 }

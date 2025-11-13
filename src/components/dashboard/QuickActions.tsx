@@ -62,10 +62,10 @@ export function QuickActions() {
   }, [open]);
 
   return (
-    <div ref={containerRef} className="fixed bottom-6 right-6 z-50">
+    <div ref={containerRef} className="fixed bottom-24 right-4 z-50 sm:bottom-24 sm:right-6 lg:bottom-12 lg:right-8">
       <Button
         className={cn(
-          "size-14 rounded-full bg-blue-600 text-white shadow-xl shadow-blue-500/30 transition hover:scale-105 hover:bg-blue-500 focus-visible:ring-blue-300",
+          "size-12 rounded-full bg-blue-600 text-white shadow-xl shadow-blue-500/30 transition hover:scale-105 hover:bg-blue-500 focus-visible:ring-blue-300 sm:size-14",
           open && "rotate-12"
         )}
         onClick={() => setOpen((previous) => !previous)}
@@ -76,7 +76,7 @@ export function QuickActions() {
       </Button>
       <div
         className={cn(
-          "pointer-events-none absolute bottom-16 right-0 flex w-56 origin-bottom-right scale-95 flex-col gap-2 rounded-2xl bg-white p-3 opacity-0 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-100 transition-all duration-200 ease-out dark:bg-slate-900 dark:shadow-slate-900/30 dark:ring-slate-700",
+          "pointer-events-none absolute bottom-[calc(100%+0.75rem)] right-0 flex w-[min(18rem,calc(100vw-2rem))] origin-bottom-right scale-95 flex-col gap-2 rounded-2xl bg-white p-3 opacity-0 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-100 transition-all duration-200 ease-out dark:bg-slate-900 dark:shadow-slate-900/30 dark:ring-slate-700 sm:w-56",
           open && "pointer-events-auto translate-y-[-8px] scale-100 opacity-100"
         )}
       >

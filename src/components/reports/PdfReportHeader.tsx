@@ -25,7 +25,7 @@ export function PdfReportHeader({ title, reportingPeriod }: PdfReportHeaderProps
             height={120}
             priority
             unoptimized
-            className="h-[120px] w-[120px] object-contain"
+            className="size-28 max-w-full object-contain"
           />
           <div className="flex flex-col">
             <span className="text-[30px] font-bold uppercase tracking-[0.18em] text-[#1a1a1a]">

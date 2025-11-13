@@ -263,8 +263,9 @@ export default function GuestsPage() {
   }, []);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
-      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div className="bg-slate-50/60 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <header className="flex flex-col gap-responsive md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">
           <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
             Guest Pipeline
@@ -287,7 +288,7 @@ export default function GuestsPage() {
       </header>
 
       <Card className="border-none shadow-sm">
-        <CardHeader className="flex flex-col gap-4 pb-0 md:flex-row md:items-center md:justify-between">
+        <CardHeader className="flex flex-col gap-responsive pb-0 md:flex-row md:items-center md:justify-between">
           <CardTitle className="text-lg font-semibold text-slate-900">
             Guest Directory
           </CardTitle>
@@ -302,7 +303,7 @@ export default function GuestsPage() {
               />
             </div>
             <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as GuestStatusFilter)}>
-              <SelectTrigger className="md:w-56">
+              <SelectTrigger className="w-full md:w-56">
                 <SelectValue placeholder="Filter status" />
               </SelectTrigger>
               <SelectContent>
@@ -316,7 +317,7 @@ export default function GuestsPage() {
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-4 pt-6">
+        <CardContent className="section-stack pt-6">
           <div className="flex flex-col gap-3 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-semibold text-slate-900">Eligible guests</p>
@@ -360,7 +361,7 @@ export default function GuestsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[25%]">Name</TableHead>
+                  <TableHead className="w-1/4">Name</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Phone</TableHead>
                   <TableHead>Invited By</TableHead>
@@ -602,6 +603,7 @@ export default function GuestsPage() {
           Loading guest records…
         </div>
       )}
+      </div>
     </div>
   );
 }

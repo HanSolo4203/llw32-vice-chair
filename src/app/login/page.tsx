@@ -81,8 +81,8 @@ function LoginContent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
-      <Card className="w-full max-w-md border border-slate-200 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md border border-slate-200 shadow-lg backdrop-blur-sm">
         <CardHeader className="space-y-2 text-center">
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-slate-900 text-white">
             <LockIcon className="size-6" />
@@ -95,9 +95,9 @@ function LoginContent() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-2">
+        <CardContent className="section-stack">
+          <form className="section-stack" onSubmit={handleSubmit}>
+            <div className="section-stack">
               <Label htmlFor="email">Email address</Label>
               <Input
                 id="email"
@@ -110,7 +110,7 @@ function LoginContent() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="section-stack">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
@@ -138,7 +138,7 @@ function LoginContent() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-xs text-muted-foreground">
+          <p className="text-center text-xs text-muted-foreground">
             Need help? Contact the portfolio administrator to reset your Supabase credentials.
           </p>
         </CardContent>

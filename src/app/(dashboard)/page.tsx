@@ -66,9 +66,9 @@ export default function DashboardPage() {
         : `${attendanceDelta > 0 ? "▲" : "▼"} ${Math.abs(attendanceDelta).toFixed(1)}% ${attendanceDelta > 0 ? "above" : "below"} target`;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 font-sans text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 pb-16 sm:px-6 lg:px-8">
-        <header className="flex flex-col gap-2">
+    <div className="bg-slate-50 pb-10 pt-6 font-sans text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+      <main className="page-shell section-stack pb-16">
+        <header className="flex flex-col gap-responsive">
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
             Round Table Lilongwe 32 Dashboard
           </h1>
@@ -90,7 +90,7 @@ export default function DashboardPage() {
         ) : statsLoading ? (
           <StatCardsSkeleton />
         ) : (
-          <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <section className="grid gap-responsive sm:grid-cols-2 xl:grid-cols-4">
             <StatsCard
               title="Total Members"
               icon={<Users className="size-6" />}
@@ -135,7 +135,7 @@ export default function DashboardPage() {
           </section>
         )}
 
-        <section className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <section className="grid gap-responsive lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6">
             <AttendanceChart
               data={attendanceData?.points}
@@ -177,7 +177,7 @@ export default function DashboardPage() {
               />
             </section>
         </div>
-          <aside className="flex h-full flex-col gap-4">
+          <aside className="flex h-full flex-col gap-responsive">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Action Alerts
             </h2>

@@ -175,7 +175,7 @@ export function AttendanceMatrix({
               {sortedMeetings.map((meeting) => (
                 <TableHead
                   key={meeting.id}
-                  className="min-w-[120px] bg-white text-center text-xs font-semibold text-muted-foreground print-transparent"
+                  className="report-col bg-white text-center text-xs font-semibold text-muted-foreground print-transparent"
                 >
                   <div className="flex flex-col gap-1">
                     <span>{formatDateLabel(meeting.meeting_date)}</span>
@@ -185,7 +185,7 @@ export function AttendanceMatrix({
                   </div>
                 </TableHead>
               ))}
-              <TableHead className="sticky right-0 z-30 min-w-[120px] bg-white text-center shadow-sm print-transparent">
+              <TableHead className="sticky right-0 z-30 report-col bg-white text-center shadow-sm print-transparent">
                 Attendance %
               </TableHead>
             </TableRow>

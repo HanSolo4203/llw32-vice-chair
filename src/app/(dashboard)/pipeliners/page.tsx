@@ -86,12 +86,12 @@ function ProgressCircle({
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className="relative flex h-20 w-20 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm"
+        className="relative flex aspect-square w-20 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm"
         style={{
           background: `conic-gradient(${accent} ${angle}deg, rgba(226, 232, 240, 0.9) ${angle}deg)`,
         }}
       >
-        <div className="flex h-[70%] w-[70%] flex-col items-center justify-center rounded-full bg-white">
+        <div className="flex aspect-square w-14 flex-col items-center justify-center rounded-full bg-white">
           <span className="text-base font-semibold text-slate-900">
             {Math.max(current, 0)}
           </span>
@@ -327,8 +327,9 @@ export default function PipelinersPage() {
   const pipelinerStatsReady = !loading && pipeliners.length > 0;
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-10">
-      <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+    <div className="bg-slate-50/60 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <div className="flex flex-col justify-between gap-responsive lg:flex-row lg:items-end">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Pipeliners
@@ -362,7 +363,7 @@ export default function PipelinersPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-responsive md:grid-cols-3">
         <Card className="shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -430,9 +431,9 @@ export default function PipelinersPage() {
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <div className="space-y-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="grid gap-responsive lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="section-stack">
+          <div className="flex flex-col gap-responsive md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2">
               <FilterIcon className="size-4 text-muted-foreground" />
               <div className="flex rounded-full border border-slate-200 bg-white p-1 text-xs font-medium text-muted-foreground">
@@ -475,7 +476,7 @@ export default function PipelinersPage() {
             </div>
           ) : null}
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-responsive md:grid-cols-2">
                 {loading ? (
               Array.from({ length: 4 }).map((_, index) => (
                 <div
@@ -655,7 +656,7 @@ export default function PipelinersPage() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="section-stack">
           <Card className="border-none bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-50 shadow-xl">
             <CardHeader>
               <CardTitle className="text-base font-semibold">
@@ -785,6 +786,7 @@ export default function PipelinersPage() {
             : undefined
         }
       />
+      </div>
     </div>
   );
 }

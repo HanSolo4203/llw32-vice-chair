@@ -76,8 +76,8 @@ export function AppSidebar() {
   };
 
   return (
-    <aside className="relative hidden shrink-0 border-r border-slate-200 bg-gradient-to-b from-white via-slate-50 to-slate-100/80 px-4 pb-8 pt-6 shadow-sm backdrop-blur print:hidden lg:block xl:w-72">
-      <div className="flex items-center gap-3 px-2">
+    <aside className="relative hidden shrink-0 border-r border-slate-200 bg-gradient-to-b from-white via-slate-50 to-slate-100/80 px-4 pb-8 pt-6 shadow-sm backdrop-blur print:hidden lg:sticky lg:top-0 lg:block lg:min-h-screen lg:w-64 lg:pl-5 lg:pr-6 lg:pt-8 lg:pb-10 xl:w-72">
+      <div className="flex items-center gap-3 px-1">
         <div className="flex size-10 items-center justify-center rounded-xl bg-blue-600 text-lg font-semibold text-white shadow-md shadow-blue-500/30">
           RTL
         </div>
@@ -155,7 +155,7 @@ export function MobileNav() {
 
   return (
     <nav className="sticky bottom-0 z-40 border-t border-slate-200 bg-white/90 shadow-[0_-6px_24px_-16px_rgba(15,23,42,0.35)] backdrop-blur print:hidden lg:hidden">
-      <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-1 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-1 overflow-x-auto px-3 py-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const active = isActivePath(pathname, item);

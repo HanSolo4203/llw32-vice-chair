@@ -117,7 +117,7 @@ export function AttendanceChart({
           value={range}
           onValueChange={(value) => onRangeChange(value as AttendanceRange)}
         >
-          <SelectTrigger className="w-[160px] rounded-full border-slate-200 bg-white text-sm font-medium text-slate-700 shadow-sm transition focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
+          <SelectTrigger className="w-full rounded-full border-slate-200 bg-white text-sm font-medium text-slate-700 shadow-sm transition focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 sm:w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -129,7 +129,7 @@ export function AttendanceChart({
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="relative h-[300px] px-2 pb-4 pt-6 sm:h-[360px] lg:h-[400px]">
+      <CardContent className="relative h-[18rem] px-2 pb-4 pt-6 sm:h-[22rem] lg:h-[25rem]">
         {isLoading ? (
           <div className="flex h-full w-full items-center justify-center">
             <Skeleton className="h-[260px] w-full rounded-xl" />

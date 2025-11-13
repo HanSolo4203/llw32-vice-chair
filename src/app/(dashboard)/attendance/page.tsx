@@ -1160,9 +1160,9 @@ export default function AttendancePage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
-        <header className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+    <div className="bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      <div className="page-shell section-stack">
+        <header className="flex flex-col gap-responsive md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <h1 className="flex items-center gap-2 text-3xl font-semibold text-slate-900">
               <UsersIcon className="size-7 text-primary" />
@@ -1188,7 +1188,7 @@ export default function AttendancePage() {
           )}
         </header>
 
-        <section className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
+        <section className="section-card section-stack">
           <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
             <div className="flex flex-col gap-2">
               <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -1268,8 +1268,8 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
-          <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <section className="section-card section-stack">
+          <header className="flex flex-col gap-responsive sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Members</h2>
               <p className="text-sm text-muted-foreground">
@@ -1314,14 +1314,14 @@ export default function AttendancePage() {
             </div>
           ) : isListView ? (
             <div className="mt-6 overflow-x-auto rounded-xl border border-slate-200">
-              <Table className="min-w-[560px]">
+              <Table className="min-w-full text-sm">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="min-w-[220px]">Member</TableHead>
-                    <TableHead className="hidden w-32 text-center sm:table-cell">
+                    <TableHead className="w-40 whitespace-nowrap">Member</TableHead>
+                    <TableHead className="hidden whitespace-nowrap text-center sm:table-cell">
                       Attendance
                     </TableHead>
-                    <TableHead className="min-w-[280px]">Status</TableHead>
+                    <TableHead className="w-48 whitespace-nowrap">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -1386,7 +1386,7 @@ export default function AttendancePage() {
               </Table>
             </div>
           ) : (
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-6 grid gap-responsive sm:grid-cols-2 xl:grid-cols-3">
               {membersAlphabetical.map((member) => {
                 const status = memberAttendance[member.id]?.status ?? null;
                 const initialStatus =
@@ -1409,8 +1409,8 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
-          <header className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <section className="section-card section-stack">
+          <header className="flex flex-col gap-responsive sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Guests</h2>
               <p className="text-sm text-muted-foreground">
@@ -1437,7 +1437,7 @@ export default function AttendancePage() {
               No guests recorded yet. Add guests as they arrive and mark their attendance.
             </div>
           ) : (
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="mt-6 grid gap-responsive md:grid-cols-2">
               {guests.map((guest) => {
                 const attended = guestAttendance[guest.id]?.attended ?? false;
                 const eligible =
@@ -1459,8 +1459,8 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-lg sm:p-6">
-          <header className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <section className="section-card section-stack">
+          <header className="flex flex-col gap-responsive sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Pipeliners</h2>
               <p className="text-sm text-muted-foreground">
@@ -1485,7 +1485,7 @@ export default function AttendancePage() {
               No pipeliners captured yet. Promote eligible guests to start tracking.
             </div>
           ) : (
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="mt-6 grid gap-responsive md:grid-cols-2">
               {pipelinerEligibility.map((pipeliner) => {
                 const attended = pipelinerAttendance[pipeliner.id]?.attended ?? false;
                 return (
@@ -1504,8 +1504,8 @@ export default function AttendancePage() {
           )}
         </section>
 
-        <section className="sticky bottom-24 mt-4 lg:bottom-6">
-          <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-2xl backdrop-blur">
+        <section className="sticky bottom-[calc(env(safe-area-inset-bottom)+6rem)] mt-4 lg:bottom-8">
+          <div className="section-card section-stack bg-white/90 shadow-2xl backdrop-blur">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                 <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">

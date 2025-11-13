@@ -181,8 +181,9 @@ export default function MembersPage() {
       : false;
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+    <div className="bg-slate-50/60 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <div className="flex flex-col justify-between gap-responsive md:flex-row md:items-end">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Members
@@ -199,7 +200,7 @@ export default function MembersPage() {
       </div>
 
       <Card className="border-none shadow-sm">
-        <CardHeader className="flex flex-col gap-4 pb-0 md:flex-row md:items-center md:justify-between">
+        <CardHeader className="flex flex-col gap-responsive pb-0 md:flex-row md:items-center md:justify-between">
           <CardTitle className="text-lg font-semibold">Member Directory</CardTitle>
           <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row">
             <div className="relative w-full md:w-72">
@@ -215,7 +216,7 @@ export default function MembersPage() {
               value={sortOption}
               onValueChange={(value) => setSortOption(value as SortOption)}
             >
-              <SelectTrigger className="md:w-56">
+              <SelectTrigger className="w-full md:w-56">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -242,7 +243,7 @@ export default function MembersPage() {
           </div>
         </CardHeader>
 
-        <CardContent className="pt-6">
+        <CardContent className="section-stack pt-6">
           {error && (
             <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
               {error}
@@ -423,6 +424,7 @@ export default function MembersPage() {
           Loading members...
         </div>
       )}
+      </div>
     </div>
   );
 }

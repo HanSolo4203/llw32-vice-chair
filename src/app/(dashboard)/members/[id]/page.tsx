@@ -102,7 +102,7 @@ export default function MemberProfilePage() {
 
   if (!memberId) {
     return (
-      <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-4 px-4 py-16 text-center">
+      <div className="page-shell section-stack items-center text-center">
         <p className="text-lg font-semibold text-foreground">
           Member not found
         </p>
@@ -115,8 +115,9 @@ export default function MemberProfilePage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+    <div className="bg-slate-50/60 pb-16 pt-8">
+      <div className="page-shell section-stack">
+        <div className="flex flex-col justify-between gap-responsive md:flex-row md:items-center">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Button
             variant="ghost"
@@ -134,7 +135,7 @@ export default function MemberProfilePage() {
       </div>
 
   <Card className="border-none shadow-sm">
-    <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between">
+    <CardContent className="flex flex-col gap-responsive p-6 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
         {member?.profile_photo_url ? (
           <div className="relative size-24 overflow-hidden rounded-full border">
@@ -192,7 +193,7 @@ export default function MemberProfilePage() {
     </CardContent>
   </Card>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-responsive md:grid-cols-4">
         <Card className="border-none bg-emerald-50/70 shadow-sm">
           <CardHeader className="pb-2">
             <CardDescription>Attendance %</CardDescription>
@@ -243,7 +244,7 @@ export default function MemberProfilePage() {
         </Card>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-5">
+      <div className="grid gap-responsive lg:grid-cols-5">
         <Card className="border-none shadow-sm lg:col-span-3">
           <CardHeader>
             <CardTitle>Attendance Trend</CardTitle>
@@ -300,7 +301,7 @@ export default function MemberProfilePage() {
               Snapshot of the member&apos;s key information.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="section-stack">
             <div className="flex items-center gap-3 rounded-lg bg-slate-50 p-3">
               <CalendarIcon className="size-5 text-slate-500" />
               <div>
@@ -486,6 +487,7 @@ export default function MemberProfilePage() {
           {error}
         </div>
       )}
+      </div>
     </div>
   );
 }
